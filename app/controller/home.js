@@ -10,11 +10,6 @@ class HomeController extends Controller {
   async jm() {
     await this.ctx.render('jignmo');
   }
-
-  async img() {
-    await this.ctx.render('img');
-  }
-
 }
 
 module.exports = HomeController;

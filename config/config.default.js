@@ -11,47 +11,14 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
-  config.middleware = [ 'jwt' ];
+
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1562664263413_7214';
-
-  // appid和secret_key
   config.secret_key = '9b9b0c6bcd57a18784e2308d94ea0891';
+
   config.appid = 'wxe3d1f3eb2d84a8cb';
 
-  config.resource = {
-    // 存储文件根路径
-    save_src: '',
-    // 返回的地址的前缀
-    add: '',
-    mp3: '.mp3',
-    jpg: '.jpg',
-    png: '.png',
-  };
 
-  config.jwt = {
-    secret: '123456',
-    enable: true,
-    ignore: [ '/login', '/wx', '/public/', '/token', '/img/' ], //  哪些请求不需要认证
-  };
-
-  config.bodyParser = {
-    enable: true,
-    encoding: 'utf8',
-    formLimit: '1000000000000000kb',
-    jsonLimit: '1000000000000000kb',
-    strict: true,
-    // @see https://github.com/hapijs/qs/blob/master/lib/parse.js#L8 for more options
-    queryString: {
-      arrayLimit: 100,
-      depth: 5,
-      parameterLimit: 1000,
-    },
-    onerror(err) {
-      err.message += ', check bodyParser config';
-      throw err;
-    },
-  };
   // {app_root}/config/config.default.js
   config.view = {
     mapping: {
@@ -145,4 +112,6 @@ exports.mysql = {
 };
 // {app_root}/config/config.default.js
 // eslint-disable-next-line eggache/no-override-exports
-
+exports.jwt = {
+  secret: '123456', // 自己设置的值
+};
