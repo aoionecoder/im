@@ -34,15 +34,26 @@ class UserController extends Controller {
     }
   }
 
+  async jf() {
+    const { uuid, num } = this.ctx.request.body.uuid;
+    const user = await this.ctx.service.user.query({ uuid });
+    const r = (user.flower_num - num);
+    if (r > 0) {
+      const u = user.update({ flower_num: r });
+      this.success(true);
+      return ;
+    }
+    this.success(false);
+  }
   async increaseCharm() {
     const ctx = this.ctx.request.query;
     const id = ctx.id;
     const num = ctx.num;
     const r = await ctx.service.user.increaseCharm(id, num);
     if (r) {
-      this.success({ result: true, msg: '操作成功！', ob: r });
+      this.success(r);
     } else {
-      this.success({ result: false, msg: '无此用户！', ob: 0 });
+      this.success(-1);
     }
   }
 
@@ -64,7 +75,6 @@ class UserController extends Controller {
     const code = ctx.query.code;
     console.log(ctx.query);
     const userInfo = await this.getUserInfo(code, false);
-    console.log(userInfo.dataValues);
     const user = userInfo.dataValues;
     if (user.id > 0) {
       this.success(user);
@@ -90,6 +100,9 @@ class UserController extends Controller {
     console.log('uuid:' + uuid);
     const userInfo = await ctx.service.user.query({ uuid });
     // console.log(userInfo)
+    if (userInfo) {
+      return userInfo;
+    }
     if (candetail) {
       // console.log(result.data);
       const data = await ctx.curl('https://api.weixin.qq.com/sns/userinfo?access_token=' + access_token + '&openid=' + openid + '&lang=zh_CN', {

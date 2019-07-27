@@ -12,6 +12,8 @@ module.exports = app => {
   router.get('/dir', controller.user.dir);
   router.get('/jm', controller.user.getUUID);
 
+  router.get('/token', controller.check.atoken);
+
 
   router.get('/a', controller.check.index);
   router.get('/wx', controller.check.check1);
@@ -22,6 +24,11 @@ module.exports = app => {
   router.post('/user/query', controller.user.query);
   router.post('/user/update', controller.user.update);
   router.get('/user/increase-charm', controller.user.increaseCharm);
+  router.post('/user/jf', controller.user.jf);// 减少花
+
+
+  router.post('/wxpay/pre', controller.pay.geOrderAndRePrePayId);// 获取微信预付订单
+  router.post('/wxpay/wxre', controller.pay.wxre);// 获取微信预付订单
 
 
   router.post('/release/add', controller.info.create);
@@ -32,6 +39,11 @@ module.exports = app => {
 
   router.post('/reservation/add', controller.reserve.create);
   router.get('/reservation/agree', controller.reserve.agree);
+
+  router.post('/img/upload', controller.upload.saveimg);
+  router.get('/img', controller.home.img);
+  router.post('/resource/save', controller.upload.savei);
+
 
   // im
   // socket.io

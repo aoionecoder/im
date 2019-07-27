@@ -27,6 +27,16 @@ class CheckController extends Controller {
     await this.ctx.render('index');
   }
 
+  async atoken() {
+    const data = await this.ctx.curl('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + this.config.appid + '&secret=' + this.config.secret_key, {
+      // 自动解析 JSON response
+      dataType: 'json',
+      // 3 秒超时
+      timeout: 3000,
+    });
+    return data.data.access_token;
+  }
+
 
 }
 

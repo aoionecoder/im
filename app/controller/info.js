@@ -11,8 +11,8 @@ class InfoController extends Controller {
   async create() {
     const ctx = this.ctx;
     console.log(ctx.request.body);
-    const user = await ctx.model.ReleaseInfo.create(ctx.request.body);
-    this.success(user);
+    const info = await ctx.model.ReleaseInfo.create(ctx.request.body);
+    this.success(info);
   }
 
   async query() {

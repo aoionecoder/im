@@ -13,7 +13,7 @@ class BaseController extends Controller {
   }
 
   success(d) {
-    this.ctx.body = { r: true, d ,m: '操作成功！'};
+    this.ctx.body = { r: true, d, m: '操作成功！' };
     this.ctx.status = 200;
   }
 
@@ -25,6 +25,13 @@ class BaseController extends Controller {
   notFound(msg) {
     msg = msg || 'not found';
     this.ctx.throw(404, msg);
+  }
+
+  token(data) {
+    const token = this.ctx.helper.loginToken(data, 7200); // token生成
+    this.app.redis.get('loginToken').set(data, token, 'ex', 7200); // 保存到redis
+    this.ctx.body = { data: { token }, code: 1, msg: '登录成功' }; // 返回前端
+
   }
 }
 

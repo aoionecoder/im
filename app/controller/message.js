@@ -7,9 +7,10 @@ const QcloudSms = require('qcloudsms_js');
 
 
 class MessageController extends Controller {
+
   async sendMessage() {
     const { ctx, app } = this;
-    const phone = this.ctx.request.body.phone;
+    const phone = this.ctx.request.body.phone_num;
     const pv = await app.redis.get(phone.toString());
     console.log(pv);
     if (pv) {
@@ -47,7 +48,7 @@ class MessageController extends Controller {
     const params = [ randnum, '3' ];
     ssender.sendWithParam(86, phoneNumbers, templateId,
       params, smsSign, '', '', callback); // 签名参数未提供或者为空时，会使用默认签名发送短信
-    app.redis.set(phone, randnum, 'EX', 180);
+    app.redis.set(phone, randnum, 'EX', 60);
     this.success(true);
   }
 }
