@@ -1,7 +1,7 @@
 FROM nginx:1.15
 MAINTAINER aoi <aoionecoder@gmail.com>
 
-FROM node:8.6.0-alpine
+FROM node:12.0.0-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 # add npm package
